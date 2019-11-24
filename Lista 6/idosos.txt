@@ -1,0 +1,5 @@
+ tabaco pcard exc bom mod ruim
+ S  S   27    76  101  39  
+ S  N  402  1050  522  145 
+ N  S   83   406  442  114 
+ N  N 1959  4521  2243 405 

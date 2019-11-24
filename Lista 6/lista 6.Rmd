@@ -1,0 +1,1183 @@
+---
+title: "Lista 6 - MAE0560"
+author: 'Guilherme NºUSP: 8943160 e Leonardo NºUSP: 9793436'
+output:
+  pdf_document:
+    fig_crop: no
+    keep_tex: yes
+    latex_engine: xelatex
+header-includes:
+- \usepackage{multirow}
+- \usepackage{ragged2e}
+- \usepackage{booktabs}
+---
+
+# Exercício 4
+
+Obtenha as probabilidades $p_j(x)$, $j=1,2,...,r$ para os modelos:
+
+(a) logitos de categoria de referência;
+
+### Resolução
+
+Como $logito_j=\beta_{0j}+\beta^T_j X$ com $j=1,2,...,r-1$.
+
+E $$logito_j= ln \bigg ( \frac{\mathbb{P}_j(x)}{\mathbb{P}_r(x)} \bigg )=\beta_{0j}+\beta^T_j X \Rightarrow \frac{\mathbb{P}_j(x)}{\mathbb{P}_r(x)} = exp \{ \beta_{0j}+ \beta^T_j X\}$$
+$$\Rightarrow \frac{\mathbb{P}_j(x)}{1-\sum_{j=1}^{r-1}\mathbb{P}_j(x)}=exp \{ \beta_{0j}+ \beta^T_j X\} \Rightarrow \mathbb{P}_j(x)=exp \{ \beta_{0j}+ \beta^T_j X\}(1-\sum_{j=1}^{r-1}\mathbb{P}_j(x))$$
+$$\Rightarrow \mathbb{P}_j(x)=exp \{ \beta_{0j}+ \beta^T_j X\}- \sum_{j=1}^{r-1}\mathbb{P}_j(x)* exp \{ \beta_{0j}+ \beta^T_j X\}$$
+$$\Rightarrow \mathbb{P}_j(x)+\sum_{j=1}^{r-1}\mathbb{P}_j(x)* exp \{ \beta_{0j}+ \beta^T_j X\}=exp \{ \beta_{0j}+ \beta^T_j X\}$$
+$$\Rightarrow \mathbb{P}_j(x)(1+\sum_{j=1}^{r-1} exp \{ \beta_{0j}+ \beta^T_j X\})=exp \{ \beta_{0j}+ \beta^T_j X\})$$
+$$\Rightarrow \mathbb{P}_j(x) =\frac{exp \{ \beta_{0j}+ \beta^T_j X\}}{1+\sum_{j=1}^{r-1} exp \{ \beta_{0j}+ \beta^T_j X\}}, \ j=1,..,r-1$$
+Para $j=r$, temos:
+
+Como $logito_r=\beta_{0r}+\beta_r^T X=0 \Rightarrow 1=exp \{ \beta_{0r}+\beta_r^T X\}$ 
+
+Logo,
+$$\mathbb{P}_r(x) =\frac{1}{1+\sum_{j=1}^{r-1} exp \{ \beta_{0j}+ \beta^T_j X\}}$$
+Com $\sum^r_{j=1}p_j(x)=1$
+\newpage
+
+(b) logitos de razão contínua.
+
+### Resolução
+
+Para os logitos de razão contínua, temos: $logito_j=-\beta_{0j}-\beta_j^TX$ com j=1,2,...r-1 e que $\sum_{j=1}^{r-1} \mathbb P(Y=j|x)=1$.
+
+$$
+logito_j = ln \bigg (\frac{\mathbb P(Y=j|x)}{\mathbb P(Y> j|x)}\bigg ) = -\beta_{0j}-\beta_j^TX \Rightarrow \frac {\mathbb P(Y=j|x)}{\mathbb P(Y> j|x)} = exp\{-\beta_{0j}-\beta_j^TX\}
+$$
+e utilizando $p_j(x)= \mathbb P(Y=j|x)$
+
+Supomos r=2, logo:
+
+$$
+logito_1= ln \bigg (\frac{\mathbb P(Y=1|x)}{\mathbb P(Y> 1|x)} \bigg )= -\beta_{01}-\beta_1^TX \Rightarrow \frac {\mathbb P(Y=1|x)}{\mathbb P(Y>1|x)} = exp\{-\beta_{01}-\beta_1^TX\} \Rightarrow \frac {p_1(x)}{p_2(x)} = exp\{-\beta_{01}-\beta_1^TX\}
+$$
+
+$$
+\Rightarrow \frac {p_1(x)}{1-p_1(x)} = exp\{-\beta_{01}-\beta_1^TX\} \Rightarrow p_1(x) = \exp\{-\beta_{01}-\beta_1^TX\} - p_1(x)\exp\{-\beta_{01}-\beta_1^TX\}
+$$
+
+$$
+\Rightarrow {p_1(x)} + p_1(x)\exp\{-\beta_{01}-\beta_1^TX\}= \exp\{-\beta_{01}-\beta_1^TX\} \Rightarrow {p_1(x)}(1+\exp\{-\beta_{01}-\beta_1^TX\})= \exp\{-\beta_{01}-\beta_1^TX\}
+$$
+$$
+\Rightarrow {p_1(x)}= \frac{\exp\{-\beta_{01}-\beta_1^TX\}}{1+\exp\{-\beta_{01}-\beta_1^TX\}}
+$$
+$$
+\Rightarrow {p_2(x)}=1- \frac{\exp\{-\beta_{01}-\beta_1^TX\}}{1+\exp\{-\beta_{01}-\beta_1^TX\}} \Rightarrow {p_2(x)}=\frac{1+\exp\{-\beta_{01}-\beta_1^TX\}-\exp\{-\beta_{01}-\beta_1^TX\}}{1+\exp\{-\beta_{01}-\beta_1^TX\}}
+$$
+
+$$
+p_2(x)=\frac{1}{1+\exp\{-\beta_{01}-\beta_1^TX\}}
+$$
+
+Para r=3:
+
+
+$$
+logito_1= ln \bigg (\frac{\mathbb P(Y=1|x)}{\mathbb P(Y> 1|x)} \bigg )= -\beta_{01}-\beta_1^TX \Rightarrow \frac {\mathbb P(Y=1|x)}{\mathbb P(Y>1|x)} = exp\{-\beta_{01}-\beta_1^TX\}
+$$
+$$
+\Rightarrow \frac {p_1(x)}{p_2(x)+p_3(x)} = exp\{-\beta_{01}-\beta_1^TX\}
+$$
+
+$$
+\Rightarrow \frac {p_1(x)}{1-p_1(x)} = exp\{-\beta_{01}-\beta_1^TX\} \Rightarrow {\mathbb P(Y=1|x)} = \exp\{-\beta_{01}-\beta_1^TX\} - \{ \mathbb P(Y=1|x)\}\exp\{-\beta_{01}-\beta_1^TX\}
+$$
+
+$$
+\Rightarrow p_1(x) + p_1(x)\exp\{-\beta_{01}-\beta_1^TX\}= \exp\{-\beta_{01}-\beta_1^TX\} \Rightarrow {\mathbb P(Y=1|x)}(1+\exp\{-\beta_{01}-\beta_1^TX\})= \exp\{-\beta_{01}-\beta_1^TX\}
+$$
+$$
+\Rightarrow  p_1(x) = \frac{\exp\{-\beta_{01}-\beta_1^TX\}}{1+\exp\{-\beta_{01}-\beta_1^TX\}}
+$$
+$$
+logito_2= ln \bigg (\frac{\mathbb P(Y=2|x)}{\mathbb P(Y> 2|x)} \bigg )= -\beta_{02}-\beta_2^TX \Rightarrow \frac {\mathbb P(Y=2|x)}{\mathbb P(Y>2|x)} = exp\{-\beta_{02}-\beta_2^TX\}
+$$
+$$
+\Rightarrow \frac {p_2(x)}{p_3(x)} = exp\{-\beta_{02}-\beta_2^TX\}
+$$
+
+$$
+\Rightarrow \frac {p_2(x)}{1-p_1(x)-p_2(x)} = exp\{-\beta_{02}-\beta_2^TX\} 
+$$
+$$
+\Rightarrow \mathbb p_2(x) = \exp\{-\beta_{02}-\beta_2^TX\} - p_1(x)\exp\{-\beta_{02}-\beta_2^TX\} - p_2(x)\exp\{-\beta_{02}-\beta_2^TX\}
+$$
+
+$$
+\Rightarrow p_2(x) + p_2(x)\exp\{-\beta_{02}-\beta_2^TX\}= \exp\{-\beta_{02}-\beta_2^TX\} - p_1(x)\exp\{-\beta_{02}-\beta_2^TX\} 
+$$
+$$
+\Rightarrow {p_2(x)}(1+\exp\{-\beta_{02}-\beta_2^TX\})= \exp\{-\beta_{02}-\beta_2^TX\} - \ p_1(x)\exp\{-\beta_{02}-\beta_2^TX\} 
+$$
+Substituindo  $\mathbb p_1(x)= \frac{\exp\{-\beta_{01}-\beta_1^TX\}}{1+\exp\{-\beta_{01}-\beta_1^TX\}}$:
+
+$$
+\Rightarrow p_2(x)= \frac{\exp\{-\beta_{02}-\beta_2^TX\}}{1+\exp\{-\beta_{02}-\beta_2^TX\}} - \frac{\exp\{-\beta_{01}-\beta_1^TX\}\exp\{-\beta_{02}-\beta_2^TX\}}{(1+\exp\{-\beta_{01}-\beta_1^TX\})((1+\exp\{-\beta_{02}-\beta_2^TX\}))} 
+$$
+
+$$
+\Rightarrow p_2(x)= \frac{(\exp\{-\beta_{02}-\beta_2^TX\})(1+\exp\{-\beta_{01}-\beta_1^TX\})}{(1+\exp\{-\beta_{02}-\beta_2^TX\})(1+\exp\{-\beta_{01}-\beta_1^TX\})} - \frac{\exp\{-\beta_{01}-\beta_1^TX\}\exp\{-\beta_{02}-\beta_2^TX\}}{(1+\exp\{-\beta_{01}-\beta_1^TX\})((1+\exp\{-\beta_{02}-\beta_2^TX\}))} 
+$$
+
+$$
+\Rightarrow p_2(x)= \frac{\exp\{-\beta_{02}-\beta_2^TX\}+\exp\{-\beta_{02}-\beta_2^TX\}\exp\{-\beta_{01}-\beta_1^TX\}-\exp\{-\beta_{01}-\beta_1^TX\}\exp\{-\beta_{02}-\beta_2^TX\}}{(1+\exp\{-\beta_{02}-\beta_2^TX\})(1+\exp\{-\beta_{01}-\beta_1^TX\})} 
+$$
+
+$$
+\Rightarrow p_2(x)= \frac{\exp\{-\beta_{02}-\beta_2^TX\}}{(1+\exp\{-\beta_{02}-\beta_2^TX\})(1+\exp\{-\beta_{01}-\beta_1^TX\})} 
+$$
+
+$$
+\Rightarrow p_3(x)=1- \frac{\exp\{-\beta_{01}-\beta_1^TX\}}{1+\exp\{-\beta_{01}-\beta_1^TX\}} - \frac{\exp\{-\beta_{02}-\beta_2^TX\}}{(1+\exp\{-\beta_{02}-\beta_2^TX\})(1+\exp\{-\beta_{01}-\beta_1^TX\})}$$
+
+$$=\frac{1}{(1+\exp\{-\beta_{02}-\beta_2^TX\})(1+\exp\{-\beta_{01}-\beta_1^TX\})}
+$$
+
+Logo, no caso geral, temos:
+
+$$
+p_j(x)= \frac{exp(\beta_{0j}+\beta_j^TX)}{\prod^{r-1}_{j=1}[1+exp(\beta_{0j}+\beta_j^TX)]}, j=1,...,r-1
+$$
+
+$$
+p_r(x)= \frac{1}{\prod^{r-1}_{j=1}[1+ exp(\beta_{0j}+\beta_j^TX)]}, com \sum^r_{j=1}p_j(x)=1
+$$
+
+
+# Exercício 6 (1 cap. 8)
+Os dados mostrados na Tabela 1 são de um estudo sobre demência realizado com indivíduos de 65 anos ou mais de idade. O objetivo do estudo foi investigar a associação entre as variáveis $X_1$ (uso de tabaco) e $X_2$ (problema cardíaco) com o estado geral de saúde dos indivíduos (variável resposta).
+
+\center
+Tabela 1: Estudo sobre demência
+\begin{tabular}{ccccccc}
+\hline
+\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Uso de\\ Tabaco\end{tabular}} & \multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Problema\\ Cardíaco\end{tabular}} & \multicolumn{4}{c}{Estado geral de saúde} & \multirow{2}{*}{Totais} \\ \cline{3-6}
+ &  & Excelente & Bom & Moderado & Ruim &  \\ \hline
+Sim & Sim & 27 & 76 & 101 & 39 & 243 \\
+Sim & Não & 402 & 1050 & 522 & 145 & 2119 \\
+Não & Sim & 83 & 406 & 442 & 114 & 1045 \\
+Não & Não & 1959 & 4521 & 2243 & 405 & 9128 \\ \hline
+\end{tabular}
+\justify
+
+(a) Represente graficamente os dados do estudo.
+
+### Resolução
+
+Fazendo os gráficos de barras, temos:
+
+```{r echo=FALSE, fig.align='center',fig.height=7,fig.width=12}
+dados <- read.table("idosos.txt",header = T)
+
+par(mfrow=c(1,2))
+data <- cbind(S = as.numeric(dados[1,c(3,4,5,6)]/sum(dados[1,c(3,4,5,6)])), N = as.numeric(dados[2,c(3,4,5,6)]/sum(dados[2,c(3,4,5,6)])))
+bp<- barplot(height = data, beside = TRUE, main = "Gráfico 1: Uso de tabaco por problema cardíaco",
+             col = c("black","darkgray","lightgray","white"), ylim=range(c(0,1)),
+             names.arg = c("Sim", "Não"), xlab="Uso de tabaco: Sim", ylab="Proporções amostrais",
+             legend.text = c("Excelente", "Bom", "Moderado", "Ruim"),
+             args.legend = list(x = "topleft", bty="n", cex=1.4))
+abline(h=0)
+text(bp, c(0.11,0.313,0.415,0.16,0.19,0.496,0.246,0.068), round(data,2), cex=1.4, pos=3) 
+
+data<-cbind(S = as.numeric(dados[3,c(3,4,5,6)]/sum(dados[3,c(3,4,5,6)])),
+            N = as.numeric(dados[4,c(3,4,5,6)]/sum(dados[4,c(3,4,5,6)])))
+bp<- barplot(height = data, beside = TRUE,
+             main = "Gráfico 2: O não uso de tabaco por problema cardíaco",
+             col = c("black","darkgray","lightgray","white"), ylim=range(c(0,1)),
+             names.arg = c("Sim", "Não"), xlab="Uso de tabaco: Não", ylab="Proporções amostrais",
+             legend.text = c("Excelente", "Bom", "Moderado", "Ruim"),
+             args.legend = list(x = "topleft", bty="n", cex=1.4))
+abline(h=0)
+text(bp, c(0.079,0.388,0.423,0.109,0.215,0.495,0.246,0.044), round(data,2), cex=1.4, pos=3) 
+```
+
+Em que podemos notar que para os fumantes, a maioria das pessoas que possuem problema cardíaco tem um estado geral de saúde moderado, enquanto os que não possuem problema cardíaco tem um estado geral de saúde bom. O mesmo acontece para os não fumantes, entretanto a proporção de pessoas com problema cardíaco e estado geral de saúde bom se aproxima da proporção de pessoas com problema cardíaco e estado geral de saúde moderado.
+
+(b) Análise os dados fazendo uso do modelo logitos cumulativos.
+
+### Resolução
+
+Para a análise foram consideradas as seguintes covariáveis
+
+$$X_1= \left\{ \begin{array}{ll}
+1, \ se \ usa \ tabaco  \\
+0, \ c.c.  \end{array} \right.
+X_2= \left\{ \begin{array}{ll}
+1, \ se \ tem \ problema \ cardiaco  \\
+0, \ c.c.  \end{array} \right. $$
+
+Primeiro iremos realizar o teste de hipótese:
+
+$$\left\{ \begin{array}{ll}
+H_0: \beta_j=\beta  \\
+H_1: \beta_j \ne \beta  \end{array} \right.$$
+
+Em que a estatística do teste é:
+$TRV=-2ln \bigg (\frac{L_{H_0}}{L_{H_1}} \bigg ) \sim \chi^2_m$
+em que m é o grau de liberdade e pode ser calculado pela diferença do número de parâmetros entre os modelos sob $H_0$ e $H_1$.
+Segue abaixo a tabela com a estatística de teste, os graus de liberdade e o $p-value$ respesctivamente, para o modelo com os parâmetros $X_1$ e $X_2$.
+
+\center
+Tabela 2: Teste de suposição de chances proporcionais
+```{r echo=FALSE, message=FALSE,warning=FALSE}
+library(VGAM)
+
+mcp <- vglm(cbind(exc,bom,mod,ruim)~factor(tabaco)+factor(pcard),
+     cumulative(parallel=T, reverse=F),data=dados)
+
+mlc <- vglm(cbind(exc,bom,mod,ruim)~factor(tabaco)+factor(pcard),
+            cumulative(parallel=F, reverse=F),data=dados)
+
+TRV <- 2*(logLik(mlc)-logLik(mcp))
+gl <- length(coef(mlc))-length(coef(mcp))
+p.value <- 1-pchisq(TRV,gl)
+knitr::kable(round(cbind(TRV, gl, p.value),3))
+```
+
+\justify
+E podemos notar na tabela 2 que fixando um nível de signíficância de 5%, nós rejeitamos a hipótese nula.
+
+Considerando os modelos somente com $X_1$ obteve-se:
+
+\center
+Tabela 3: Teste de suposição de chances proporcionais
+```{r echo=FALSE}
+mcp1 <- vglm(cbind(exc,bom,mod,ruim)~factor(tabaco),
+             cumulative(parallel=T, reverse=F),data=dados)
+
+mlc1 <- vglm(cbind(exc,bom,mod,ruim)~factor(tabaco),
+             cumulative(parallel=F, reverse=F),data=dados)
+
+TRV1 <- 2*(logLik(mlc1)-logLik(mcp1))
+gl1 <- length(coef(mlc1))-length(coef(mcp1))
+p.value <- 1-pchisq(TRV1,gl1)
+knitr::kable(round(cbind(TRV1, gl1, p.value),3))
+```
+
+\justify
+E somente com $X_2$:
+
+\center
+Tabela 4: Teste de suposição de chances proporcionais:
+```{r echo=FALSE, warning=FALSE}
+mcp2 <- vglm(cbind(exc,bom,mod,ruim)~factor(pcard),
+             cumulative(parallel=T, reverse=F),data=dados)
+
+mlc2 <- vglm(cbind(exc,bom,mod,ruim)~factor(pcard),
+             cumulative(parallel=F, reverse=F),data=dados)
+
+TRV2 <- 2*(logLik(mlc2)-logLik(mcp2))
+gl2 <- length(coef(mlc2))-length(coef(mcp2))
+p.value <- 1-pchisq(TRV2,gl2)
+knitr::kable(round(cbind(TRV2, gl2, p.value),3))
+```
+
+\justify
+Logo temos evidências a favor da suposição de chances proporcionais apenas para $X_2$, com isso iremos avaliar o modelo logito comulativo com chances proporcionais parciais.
+
+\center
+Tabela 5: Modelos ajustados e diferença de *deviances* entre eles
+\begin{tabular}{lcccccc}
+\hline
+Modelos & g.l. & $Deviances$ & TRV & $\ne$ g.l. & $p-value$ & AIC \\ \hline
+Nulo & 12-3=9 & 379.63 &  &  &  & 469.54 \\
+$X_1$ & 12-6=6 & 353.12 & 26.51 & 3 & \textless{}0.0001 & 449.03 \\
+$X_2$|$X_1$  & 12-7=5 & 6.528 & 346.592 & 1 & \textless{}0.0001 & 104.44 \\
+$X_1$*$X_2$ | $X_1$  & 12-8=4 & 6.43 & 0.01 & 1 & 0.755 & 106.34 \\ \hline
+\end{tabular}
+\justify
+
+Em que podemos notar que o com um nível de significância de 5%, o efeito de interação não é significante, tendo em vista isso ajustamos os modelos:
+
+```{r echo=FALSE,warning=F}
+mlcr2<-vglm(cbind(exc,bom,mod,ruim)~factor(tabaco)+factor(pcard), cumulative(parallel=F~factor(tabaco), reverse=F), dados)
+
+summary(mlcr2)
+```
+
+Fazendo a análise de resíduos (Pearson):
+```{r echo=FALSE,fig.align='center',fig.width=8,fig.height=3,message=FALSE,out.width="75%"}
+library(ggplot2)
+library(gridExtra)
+library(tidyr)
+
+rp<-resid(mlcr2, type = "pearson")
+
+d1 <- data.frame(x=1:4,y=rp[,1])
+d2 <- data.frame(x=1:4,y=rp[,2])
+d3 <- data.frame(x=1:4,y=rp[,3])
+
+plot1 <- d1 %>% ggplot(aes(y=rp[,1],x=1:4)) +
+  geom_point() +
+  scale_y_continuous(limits = c(-2,2)) +
+  geom_hline(yintercept = 0,linetype = "dashed") +
+  labs(x="Índices",
+       y="Resíduos de Pearson",
+       title="Gráfico 3: Logito 1")
+plot2 <- d2 %>% ggplot(aes(y=rp[,2],x=1:4)) +
+  geom_point() +
+  scale_y_continuous(limits = c(-2,2)) +
+  geom_hline(yintercept = 0,linetype = "dashed") +
+  labs(x="Índices",
+       y="Resíduos de Pearson",
+       title="Gráfico 4: Logito 2") 
+plot3 <- d3 %>% ggplot(aes(y=rp[,3],x=1:4)) +
+  geom_point() +
+  scale_y_continuous(limits = c(-2,2)) +
+  geom_hline(yintercept = 0,linetype = "dashed") +
+  labs(x="Índices",
+       y="Resíduos de Pearson",
+       title="Gráfico 5: Logito 3") 
+grid.arrange(plot1, plot2,plot3, ncol=3)
+```
+
+Em que podemos notar que os todos os resíduos estão contidos no intervalo -2,2, o que nos da um bom ajuste.
+
+Realizando os testes de qualidade de ajuste, em que as hipóteses são definidas:
+
+$$\left\{ \begin{array}{ll}
+H_0: modelo \ ajustado \ e \ satisfatorio  \\
+H_1: modelo \ ajustado \ nao \ e \ satisfatorio  \end{array} \right.$$
+
+Em que as estatísticas de teste são:
+$$Q_p=\sum_{i,j}\frac{(n_{ij}-e_{ij})^2}{e_{ij}} \sim \chi^2_m$$ e 
+$$Q_L=2\sum_{i,j}n_{ij} ln \left (\dfrac{n_{ij}}{e_{ij}} \right ) \sim \chi^2_m$$
+com $n_{ij}$ as observação com $i=1,...s$ e $j=1,..,r$, 
+
+$e_{ij}$ as frequências esperadas sob o modelo ajustado e 
+
+$m=$ nº de subpopulações - nº de parâmetros do modelo ajustado (graus de liberdade)
+
+E obtemos a seguinte tabela:
+
+\center
+Tabela 6: Teste de qualidade de ajuste
+```{r echo=FALSE}
+Qp <- sum(rp[,1]^2) + sum(rp[,2]^2)+ sum(rp[,3]^2)
+p.value <- 1-pchisq(Qp,5)
+knitr::kable(round(cbind(Qp,p.value),3))
+```
+
+\justify
+
+Fixando um nível de significância de 5%, não rejeitamos a hipótese nula de que o modelo é adequado.
+
+\center
+Tabela 7: Teste de qualidade de ajuste
+```{r echo=FALSE}
+QL <- deviance(mlcr2)
+p.value <- 1-pchisq(QL,5)
+knitr::kable(round(cbind(QL,p.value),3))
+```
+
+\justify
+
+Fixando um nível de significância de 5%, não rejeitamos a hipótese nula de que o modelo é adequado.
+
+Concluindo que temos um modelo com um ajuste satisfatório.
+
+(c) Apresente conclusões sobre a associação de interese.
+
+### Resolução
+
+Podemos notar que os fatores são significantes para o modelo. Os logitos podem ser escritos por:
+$$
+logito_1 = -1.303 -0.127X_1 -1.02X_2
+$$
+$$
+logito_2 = 0.897  -0.128X_1 -1.02X_2
+$$
+$$
+logito_3 = 3.08 -0.458X_1 -1.025X_2
+$$
+\center
+Tabela 8: Chances associadas ao modelo ajustado
+\begin{tabular}{cccccccc}
+\hline
+\begin{tabular}[c]{@{}c@{}}Uso de\\ Tabaco\end{tabular} & \begin{tabular}[c]{@{}c@{}}Problema\\  Cardíaco\end{tabular} & $\frac{\mathbb{P}(Y=1|x)}{\mathbb{P}(Y>1|x)}$ & Estim. & $\frac{\mathbb{P}(Y\leq 2|x)}{\mathbb{P}(Y>2|x)}$ & Estim. & $\frac{\mathbb{P}(Y\leq 3|x)}{\mathbb{P}(Y=4|x)}$ & Estim. \\ \hline
+Sim & Sim & $exp\{\beta_{01}+\beta_{11}+\beta_{2}\}$ & 0.086 & $exp\{\beta_{02}+\beta_{12}+\beta_{2}\}$ & 0.773 & $exp\{\beta_{03}+\beta_{13}+\beta_{2}\}$ & 4.949 \\
+Sim & Não & $exp\{\beta_{01}+\beta_{11}\}$ & 0.239 & $exp\{\beta_{02}+\beta_{12}\}$ & 2.156 & $exp\{\beta_{03}+\beta_{13}\}$ & 13.798 \\
+Não & Sim & $exp\{\beta_{01}+\beta_{2}\}$ & 0.097 & $exp\{\beta_{02}+\beta_{2}\}$ & 0.879 & $exp\{\beta_{03}+\beta_{2}\}$ & 7.825 \\
+Não & Não & $exp\{\beta_{01}\}$ & 0.271 & $exp\{\beta_{02}\}$ & 2.452 & $exp\{\beta_{03}\}$ & 21.816 \\ \hline
+\end{tabular}
+\justify
+
+Logo, a chance de possuir um estado geral de saúde excelente, em relação aos outros estados de saúde, é maior para os não fumantes que não possuem problemas cardíacos, em seguida, os fumantes sem problemas cardíacos e por fim os não fumantes com problemas cardíacos e os fumantes com problemas cardíacos, respectivamente.
+
+Esta mesma sequência de populações acontece para a chance de o estado geral de saúde ser excelente ou bom em relação com ser moderado ou ruim e a chance de o estado geral de saúde ser excelente, bom ou moderado em relação com ser ruim.
+
+Pode-se dizer também que a maior diferença entre as populações é dos fumantes sem problemas cardíacos e dos não fumantes com problemas cardíacos. 
+
+# Exercício 6 (2 cap. 8)
+
+Analise os dados do estudo sobre demência dispostos na Tabela anterior:
+
+(a) Por meio do modelo logitos categorias adjacentes
+
+### Resolução
+
+Considerando as mesmas covariáveis do exercício anterior, realizaremos o teste:
+$$\left\{ \begin{array}{ll}
+H_0: \beta_j=\beta  \\
+H_1: \beta_j \ne \beta  \end{array} \right.$$
+
+Em que para as duas covariáveis obtemos:
+
+\center
+Tabela 9: Teste de suposição de chances proporcionais
+```{r echo=FALSE}
+mca1 <- vglm(cbind(exc,bom,mod,ruim)~ factor(tabaco)+factor(pcard),
+           family=acat(reverse=T,parallel=T),dados)
+
+mca2 <- vglm(cbind(exc,bom,mod,ruim)~ factor(tabaco)+factor(pcard),
+             family=acat(reverse=T,parallel=F),dados)
+
+TRV<- deviance(mca1)-deviance(mca2)
+gl <- df.residual(mca1)-df.residual(mca2)
+p.value <- 1-pchisq(TRV,gl)
+knitr::kable(round(cbind(TRV, gl, p.value),3))
+```
+
+\justify
+E podemos notar que fixando um nível de signíficância de 5%, rejeitamos a hipótese nula.
+
+Considerando os modelos somente com $X_1$ obteve-se:
+
+\center
+Tabela 10: Teste de suposição de chances proporcionais
+```{r echo=FALSE}
+mca11 <- vglm(cbind(exc,bom,mod,ruim)~ factor(tabaco),
+              family=acat(reverse=T,parallel=T),dados)
+
+mca21 <- vglm(cbind(exc,bom,mod,ruim)~ factor(tabaco),
+              family=acat(reverse=T,parallel=F),dados)
+
+TRV1<- deviance(mca11)-deviance(mca21)
+gl1 <- df.residual(mca11)-df.residual(mca21)
+p.value <- 1-pchisq(TRV1,gl1)
+knitr::kable(round(cbind(TRV1, gl1, p.value),3))
+```
+
+\justify
+E podemos notar que fixando um nível de signíficância de 5%, rejeitamos a hipótese nula.
+
+E somente com $X_2$:
+
+\center
+Tabela 10: Teste de suposição de chances proporcionais
+```{r echo=FALSE,warning=FALSE}
+mca12 <- vglm(cbind(exc,bom,mod,ruim)~ factor(pcard),
+              family=acat(reverse=T,parallel=T),dados)
+
+mca22 <- vglm(cbind(exc,bom,mod,ruim)~ factor(pcard),
+              family=acat(reverse=T,parallel=F),dados)
+
+TRV2<- deviance(mca12)-deviance(mca22)
+gl2 <- df.residual(mca12)-df.residual(mca22)
+p.value <- 1-pchisq(TRV2,gl2)
+knitr::kable(round(cbind(TRV2, gl2, p.value),3))
+```
+
+\justify
+Logo, com um nível de significância fixado de 5%, temos evidências a favor da suposição de chances não proporcionais para todas as covariáveis.
+
+\center
+Tabela 11: Modelos ajustados e diferença de *deviances* entre eles
+\begin{tabular}{lcccccc}
+\hline
+Modelos & g.l. & $Deviances$ & TRV & $\ne$ g.l. & $p-value$ & AIC \\ \hline
+Nulo & 12-3=9 & 379.63 &  &  &  & 469.54 \\
+$X_1$ & 12-6=6 & 353.12 & 26.51 & 3 & \textless{}0.0001 & 449.03 \\
+$X_2$|$X_1$  & 12-9=3 & 6.37 & 346.75 & 3 & \textless{}0.0001 & 108.28 \\
+$X_1$*$X_2$ | $X_1$  & 12-12=0 & 0 & 6.37 & 3 & 0.095 & 107.91 \\ \hline
+\end{tabular}
+\justify
+
+Em que podemos notar que o com um nível de significância de 5%, o efeito de interação não é significante, tendo em vista isso ajustamos os modelos:
+
+```{r echo=FALSE,warning=F}
+mca2 <- vglm(cbind(exc,bom,mod,ruim)~factor(tabaco)+factor(pcard), 
+             acat(reverse=T,parallel=F), dados)
+summary(mca2)
+```
+
+Podemos escrever os logitos com os parâmentros significativos:
+
+$$
+logito_1 = -0.843 -0.619X_2
+$$
+$$
+logito_2 = 0.704 -0.820X_2
+$$
+$$
+logito_3 = 1.711 -0.426X_1 -0.352X_2
+$$
+
+Fazendo a análise de resíduos (Pearson):
+```{r echo=FALSE,fig.align='center',fig.width=8,fig.height=3,message=FALSE,out.width="75%"}
+rp <- resid(mca2, type = "pearson")
+
+d1 <- data.frame(x=1:4,y=rp[,1])
+d2 <- data.frame(x=1:4,y=rp[,2])
+d3 <- data.frame(x=1:4,y=rp[,3])
+
+plot1 <- d1 %>% ggplot(aes(y=rp[,1],x=1:4)) +
+  geom_point() +
+  scale_y_continuous(limits = c(-2.5,2.5)) +
+  geom_hline(yintercept = 0,linetype = "dashed") +
+  labs(x="Índices",
+       y="Resíduos de Pearson",
+       title="Gráfico 6: Logito 1")
+plot2 <- d2 %>% ggplot(aes(y=rp[,2],x=1:4)) +
+  geom_point() +
+  scale_y_continuous(limits = c(-2.5,2.5)) +
+  geom_hline(yintercept = 0,linetype = "dashed") +
+  labs(x="Índices",
+       y="Resíduos de Pearson",
+       title="Gráfico 7: Logito 2") 
+plot3 <- d3 %>% ggplot(aes(y=rp[,3],x=1:4)) +
+  geom_point() +
+  scale_y_continuous(limits = c(-2.5,2.5)) +
+  geom_hline(yintercept = 0,linetype = "dashed") +
+  labs(x="Índices",
+       y="Resíduos de Pearson",
+       title="Gráfico 8: Logito 3") 
+grid.arrange(plot1, plot2,plot3, ncol=3)
+```
+
+Realizando os testes de qualidade de ajuste, em que as hipóteses são definidas:
+
+$$\left\{ \begin{array}{ll}
+H_0: modelo \ ajustado \ e \ satisfatorio  \\
+H_1: modelo \ ajustado \ nao \ e \ satisfatorio  \end{array} \right.$$
+
+E obtemos a seguinte tabela:
+
+\center
+Tabela 12: Teste de qualidade de ajuste
+```{r echo=FALSE}
+Qp <- sum(rp[,1]^2) + sum(rp[,2]^2)+ sum(rp[,3]^2)
+p.value <- 1-pchisq(Qp,5)
+knitr::kable(round(cbind(Qp,p.value),3))
+```
+
+\justify
+
+Fixando um nível de significância de 5%, não rejeita-se a hipótese nula.
+
+\center
+Tabela 13: Teste de qualidade de ajuste
+```{r echo=FALSE}
+QL <- deviance(mca2)
+p.value <- 1-pchisq(QL,5)
+knitr::kable(round(cbind(QL,p.value),3))
+```
+
+\justify
+
+Fixando um nível de significância de 5%, não rejeita-se a hipótese nula.
+
+Concluindo que temos um modelo com um ajuste satisfatório, porém o modelo de logitos comulativos está melhor ajustado.
+
+\center
+Tabela 14: Chances associadas ao modelo ajustado
+\begin{tabular}{cccccccc}
+\hline
+\begin{tabular}[c]{@{}c@{}}Uso de\\ Tabaco\end{tabular} & \begin{tabular}[c]{@{}c@{}}Problema\\  Cardíaco\end{tabular} & $\frac{\mathbb{P}(Y=1|x)}{\mathbb{P}(Y=2|x)}$ & Estim. & $\frac{\mathbb{P}(Y= 2|x)}{\mathbb{P}(Y=3|x)}$ & Estim. & $\frac{\mathbb{P}(Y= 3|x)}{\mathbb{P}(Y=4|x)}$ & Estim. \\ \hline
+Sim & Sim & $exp\{\beta_{01}+\beta_{11}+\beta_{21}\}$ & 0.212 & $exp\{\beta_{02}+\beta_{12}+\beta_{22}\}$ & 0.874 & $exp\{\beta_{03}+\beta_{13}+\beta_{23}\}$ & 2.54 \\
+Sim & Não & $exp\{\beta_{01}+\beta_{11}\}$ & 0.395 & $exp\{\beta_{02}+\beta_{12}\}$ & 1.984 & $exp\{\beta_{03}+\beta_{13}\}$ & 3.613 \\
+Não & Sim & $exp\{\beta_{01}+\beta_{21}\}$ & 0.232 & $exp\{\beta_{02}+\beta_{22}\}$ & 0.890 & $exp\{\beta_{03}+\beta_{23}\}$ & 3.893 \\
+Não & Não & $exp\{\beta_{01}\}$ & 0.430 & $exp\{\beta_{02}\}$ & 2.02 & $exp\{\beta_{03}\}$ & 5.34 \\ \hline
+\end{tabular}
+\justify
+
+Logo para todas as populações a chance de o estado de saúde ser excelente em relação ao estado de saúde ser bom é menor que 1, logo a probabilidade do estado de saúde ser excelente é menor que a de ser bom.
+
+Quando é comparado o estado de saúde bom em relação ao moderado, as pessoas que não tem problemas cardíacos possuem uma chance maior que 1, enquanto as que possuem problemas cardíacos, as chances são menores que 1, o que significa que a probabilidade do estado de saúde de pessoas que não possuem problemas ser bom é maior que ser moderado, o contrário ocorre para pessoas com problemas cardíacos.
+
+Por fim, todas as chances do estado de saúde ser moderado em relação a ser ruim são maiores que 1, logo a probabilidade ser possuir uma saúde moderada é maior do que ela ser ruim.
+
+
+(b) Por meio do modelo logitos razão contínua
+
+### Resolução
+
+Considerando as mesmas covariáveis do exercício anterior, realizaremos o teste:
+$$\left\{ \begin{array}{ll}
+H_0: \beta_j=\beta  \\
+H_1: \beta_j \ne \beta  \end{array} \right.$$
+
+Em que para as duas covariáveis obtemos:
+
+\center
+Tabela 15: Teste de suposição de chances proporcionais
+```{r echo=FALSE}
+mlrc1 <- vglm(cbind(exc,bom,mod,ruim)~ factor(tabaco)+factor(pcard),
+              family=cratio(reverse=T,parallel=T),dados)
+
+mlrc2 <- vglm(cbind(exc,bom,mod,ruim)~ factor(tabaco)+factor(pcard),
+              family=cratio(reverse=T,parallel=F),dados)
+
+TRV<- deviance(mlrc1)-deviance(mlrc2)
+gl <- df.residual(mlrc1)-df.residual(mlrc2)
+p.value <- 1-pchisq(TRV,gl)
+knitr::kable(round(cbind(TRV, gl, p.value),3))
+```
+
+\justify
+E podemos notar que fixando um nível de signíficância de 5%, rejeitamos a hipótese nula.
+
+Considerando os modelos somente com $X_1$ obteve-se:
+
+\center
+Tabela 16: Teste de suposição de chances proporcionais
+```{r echo=FALSE}
+mlrc11 <- vglm(cbind(exc,bom,mod,ruim)~ factor(tabaco),
+              family=cratio(reverse=T,parallel=T),dados)
+
+mlrc21 <- vglm(cbind(exc,bom,mod,ruim)~ factor(tabaco),
+              family=cratio(reverse=T,parallel=F),dados)
+
+TRV1 <- deviance(mlrc11)-deviance(mlrc21)
+gl1 <- df.residual(mlrc11)-df.residual(mlrc21)
+p.value <- 1-pchisq(TRV1,gl1)
+knitr::kable(round(cbind(TRV1, gl1, p.value),3))
+```
+
+\justify
+E podemos notar que fixando um nível de signíficância de 5%, rejeitamos a hipótese nula.
+
+E somente com $X_2$:
+
+\center
+Tabela 17: Teste de suposição de chances proporcionais
+```{r echo=FALSE,warning=FALSE}
+mlrc12 <- vglm(cbind(exc,bom,mod,ruim)~ factor(pcard),
+               family=cratio(reverse=T,parallel=T),dados)
+
+mlca22 <- vglm(cbind(exc,bom,mod,ruim)~ factor(pcard),
+               family=cratio(reverse=T,parallel=F),dados)
+
+TRV2<- deviance(mlrc12)-deviance(mlca22)
+gl2 <- df.residual(mlrc12)-df.residual(mlca22)
+p.value <- 1-pchisq(TRV2,gl2)
+knitr::kable(round(cbind(TRV2, gl2, p.value),3))
+```
+
+\justify
+Logo, com um nível de significância fixado de 5%, temos evidências a favor da suposição de chances não proporcionais para todas as covariáveis.
+
+\center
+Tabela 18: Modelos ajustados e diferença de *deviances* entre eles
+\begin{tabular}{lcccccc}
+\hline
+Modelos & g.l. & $Deviances$ & TRV & $\ne$ g.l. & $p-value$ & AIC \\ \hline
+Nulo & 12-3=9 & 379.63 &  &  &  & 469.54 \\
+$X_1$ & 12-6=6 & 353.12 & 26.51 & 3 & \textless{}0.0001 & 449.03 \\
+$X_2$|$X_1$  & 12-9=3 & 6.34 & 346.78 & 3 & \textless{}0.0001 & 108.25 \\
+$X_1$*$X_2$ | $X_1$  & 12-12=0 & 0 & 6.34 & 3 & 0.096 & 107.91 \\ \hline
+\end{tabular}
+\justify
+
+Em que podemos notar que o com um nível de significância de 5%, o efeito de interação não é significante, tendo em vista isso ajustamos os modelos:
+
+```{r echo=FALSE,warning=F}
+mrc2 <- vglm(cbind(exc,bom,mod,ruim)~factor(tabaco)+factor(pcard), family=cratio(reverse=T,parallel=F), dados)
+
+summary(mrc2)
+```
+
+Podemos escrever os logitos com os parâmetros significativos:
+
+$$
+logito_1 = -0.843 -0.619X_2
+$$
+$$
+logito_2 = 1.062 -0.967X_2
+$$
+$$
+logito_3 = 3.069 -0.456X_1 -0.966X_2
+$$
+Fazendo a análise de resíduos (Pearson):
+
+```{r echo=FALSE,fig.align='center',fig.width=8,fig.height=3,message=FALSE,out.width="75%"}
+rp <- resid(mrc2, type = "pearson")
+
+d1 <- data.frame(x=1:4,y=rp[,1])
+d2 <- data.frame(x=1:4,y=rp[,2])
+d3 <- data.frame(x=1:4,y=rp[,3])
+
+plot1 <- d1 %>% ggplot(aes(y=rp[,1],x=1:4)) +
+  geom_point() +
+  scale_y_continuous(limits = c(-2.5,2.5)) +
+  geom_hline(yintercept = 0,linetype = "dashed") +
+  labs(x="Índices",
+       y="Resíduos de Pearson",
+       title="Gráfico 9: Logito 1")
+plot2 <- d2 %>% ggplot(aes(y=rp[,2],x=1:4)) +
+  geom_point() +
+  scale_y_continuous(limits = c(-2.5,2.5)) +
+  geom_hline(yintercept = 0,linetype = "dashed") +
+  labs(x="Índices",
+       y="Resíduos de Pearson",
+       title="Gráfico 10: Logito 2") 
+plot3 <- d3 %>% ggplot(aes(y=rp[,3],x=1:4)) +
+  geom_point() +
+  scale_y_continuous(limits = c(-2.5,2.5)) +
+  geom_hline(yintercept = 0,linetype = "dashed") +
+  labs(x="Índices",
+       y="Resíduos de Pearson",
+       title="Gráfico 11: Logito 3") 
+grid.arrange(plot1, plot2,plot3, ncol=3)
+
+```
+
+Realizando os testes de qualidade de ajuste, em que as hipóteses são definidas:
+
+$$\left\{ \begin{array}{ll}
+H_0: modelo \ ajustado \ e \ satisfatorio  \\
+H_1: modelo \ ajustado \ nao \ e \ satisfatorio  \end{array} \right.$$
+
+E obtemos a seguinte tabela:
+
+\center
+Tabela 19: Teste de qualidade de ajuste
+```{r echo=FALSE}
+Qp <- sum(rp[,1]^2) + sum(rp[,2]^2)+ sum(rp[,3]^2)
+p.value <- 1-pchisq(Qp,5)
+knitr::kable(round(cbind(Qp,p.value),3))
+```
+
+\justify
+
+Fixando um nível de significância de 5%, não rejeita-se a hipótese nula.
+
+\center
+Tabela 20: Teste de qualidade de ajuste
+```{r echo=FALSE}
+QL <- deviance(mrc2)
+p.value <- 1-pchisq(QL,5)
+knitr::kable(round(cbind(QL,p.value),3))
+```
+
+\justify
+
+Fixando um nível de significância de 5%, não rejeita-se a hipótese nula.
+
+Concluindo que temos um modelo com um ajuste satisfatório, porém o modelo de logitos comulativos continua sendo o modelo melhor ajustado.
+
+\center
+Tabela 21: Chances associadas ao modelo ajustado
+\begin{tabular}{cccccccc}
+\hline
+\begin{tabular}[c]{@{}c@{}}Uso de\\ Tabaco\end{tabular} & \begin{tabular}[c]{@{}c@{}}Problema\\  Cardíaco\end{tabular} & $\frac{\mathbb{P}(Y=1|x)}{\mathbb{P}(Y>1|x)}$ & Estim. & $\frac{\mathbb{P}(Y=2|x)}{\mathbb{P}(Y>2|x)}$ & Estim. & $\frac{\mathbb{P}(Y= 3|x)}{\mathbb{P}(Y=4|x)}$ & Estim. \\ \hline
+Sim & Sim & $exp\{\beta_{01}+\beta_{11}+\beta_{21}\}$ & 0.081 & $exp\{\beta_{02}+\beta_{12}+\beta_{22}\}$ & 0.622 & $exp\{\beta_{03}+\beta_{13}+\beta_{23}\}$ & 2.528 \\
+Sim & Não & $exp\{\beta_{01}+\beta_{11}\}$ & 0.24 & $exp\{\beta_{02}+\beta_{12}\}$ & 1.55 & $exp\{\beta_{03}+\beta_{13}\}$ & 3.62 \\
+Não & Sim & $exp\{\beta_{01}+\beta_{21}\}$ & 0.096 & $exp\{\beta_{02}+\beta_{22}\}$ & 0.71 & $exp\{\beta_{03}+\beta_{23}\}$ & 3.90 \\
+Não & Não & $exp\{\beta_{01}\}$ & 0.271 & $exp\{\beta_{02}\}$ & 1.711 & $exp\{\beta_{03}\}$ & 5.53 \\ \hline
+\end{tabular}
+\justify
+
+Logo, a chance de uma pessoa ter a saúde excelente em relação aos demais estados de saúde é menor que 1 para fumantes e não fumante com ou sem problemas cardíacos, logo a probabilidade de não possuir uma saúde execelente é maior do que a de ter uma saúde excelente.
+
+As pessoas que não possuem problemas cardíacos possuem maior probabilidade de ter uma saúde boa do que ter uma saúde moderada ou ruim, já as pessoas que possuem problemas cardíacos ocorre o contrário. 
+
+Por fim, para todos a probabilidade de a saúde ser moderada é maior que a probabilidade de ser ruim.
+
+
+# Códigos
+```{r eval=FALSE}
+# lista de categorizados - MAE0560
+
+library(VGAM)
+library(tidyr)
+library(ggplot2)
+library(gridExtra)
+
+dados <- read.table("idosos.txt",header = T)
+
+# item a
+par(mfrow=c(1,2))
+data <- cbind(S = as.numeric(dados[1,c(3,4,5,6)]/sum(dados[1,c(3,4,5,6)])),
+              N = as.numeric(dados[2,c(3,4,5,6)]/sum(dados[2,c(3,4,5,6)])))
+bp<- barplot(height = data, beside = TRUE,
+             col = c("black","darkgray","lightgray","white"), ylim=range(c(0,1)),
+             names.arg = c("Sim", "Não"),
+             xlab="Uso de tabaco: Sim", ylab="Proporções amostrais",
+             legend.text = c("Excelente", "Bom", "Moderado", "Ruim"),
+             args.legend = list(x = "topleft", bty="n", cex=1.4))
+abline(h=0)
+text(bp, c(0.11,0.313,0.415,0.16,0.19,0.496,0.246,0.068), round(data,2), cex=1.4, pos=3) 
+
+data<-cbind(S = as.numeric(dados[3,c(3,4,5,6)]/sum(dados[3,c(3,4,5,6)])),
+            N = as.numeric(dados[4,c(3,4,5,6)]/sum(dados[4,c(3,4,5,6)])))
+bp<- barplot(height = data, beside = TRUE,
+             col = c("black","darkgray","lightgray","white"), ylim=range(c(0,1)),
+             names.arg = c("Sim", "Não"), 
+             xlab="Uso de tabaco: Não", ylab="Proporções amostrais",
+             legend.text = c("Excelente", "Bom", "Moderado", "Ruim"),
+             args.legend = list(x = "topleft", bty="n", cex=1.4))
+abline(h=0)
+text(bp, c(0.079,0.388,0.423,0.109,0.215,0.495,0.246,0.044), 
+     round(data,2), cex=1.4, pos=3) 
+
+# item b
+
+# para todas as variáveis
+mcp <- vglm(cbind(exc,bom,mod,ruim)~factor(tabaco)+factor(pcard),
+            cumulative(parallel=T, reverse=F),data=dados)
+
+mlc <- vglm(cbind(exc,bom,mod,ruim)~factor(tabaco)+factor(pcard),
+            cumulative(parallel=F, reverse=F),data=dados)
+
+TRV <- 2*(logLik(mlc)-logLik(mcp))
+gl <- length(coef(mlc))-length(coef(mcp))
+p <- 1-pchisq(TRV,gl)
+cbind(TRV, gl, p)
+
+# para variável X1
+
+mcp1 <- vglm(cbind(exc,bom,mod,ruim)~factor(tabaco),
+             cumulative(parallel=T, reverse=F),data=dados)
+
+mlc1 <- vglm(cbind(exc,bom,mod,ruim)~factor(tabaco),
+             cumulative(parallel=F, reverse=F),data=dados)
+
+TRV1 <- 2*(logLik(mlc1)-logLik(mcp1))
+gl1 <- length(coef(mlc1))-length(coef(mcp1))
+p1 <- 1-pchisq(TRV1,gl1)
+cbind(TRV1, gl1, p1)
+
+# para variável X2
+
+mcp2 <- vglm(cbind(exc,bom,mod,ruim)~factor(pcard),
+             cumulative(parallel=T, reverse=F),data=dados)
+
+mlc2 <- vglm(cbind(exc,bom,mod,ruim)~factor(pcard),
+             cumulative(parallel=F, reverse=F),data=dados)
+
+TRV2 <- 2*(logLik(mlc2)-logLik(mcp2))
+gl2 <- length(coef(mlc2))-length(coef(mcp2))
+p2 <- 1-pchisq(TRV2,gl2)
+cbind(TRV2, gl2, p2)
+
+# tabela deviances
+mlcr0<-vglm(cbind(exc,bom,mod,ruim)~1,cumulative(parallel=F~factor(tabaco), reverse=F), dados)
+mlcr0
+mlcr1<-vglm(cbind(exc,bom,mod,ruim)~factor(tabaco), 
+            cumulative(parallel=F~factor(tabaco), reverse=F), dados)
+mlcr1
+mlcr2<-vglm(cbind(exc,bom,mod,ruim)~factor(tabaco)+factor(pcard),
+            cumulative(parallel=F~factor(tabaco), reverse=F), dados)
+mlcr2
+mlcr3<-vglm(cbind(exc,bom,mod,ruim)~factor(tabaco)+factor(pcard)+
+              factor(tabaco)*factor(pcard),
+            cumulative(parallel=F~factor(tabaco), reverse=F), dados)
+mlcr3
+
+# graus de liberdade
+gl1 <- df.residual(mlcr0)-df.residual(mlcr1)
+gl2 <- df.residual(mlcr1)-df.residual(mlcr2)
+gl3 <- df.residual(mlcr2)-df.residual(mlcr3)
+
+# dif deviances
+dev1 <- deviance(mlcr0)-deviance(mlcr1)
+dev2 <- deviance(mlcr1)-deviance(mlcr2)
+dev3 <- deviance(mlcr2)-deviance(mlcr3)
+
+# p-values
+p1 <- 1-pchisq(dev1,gl1)
+p2 <- 1-pchisq(dev2,gl2)
+p3 <- 1-pchisq(dev3,gl3)
+
+# AIC dos modelos
+AIC(mlcr0)
+AIC(mlcr1)
+AIC(mlcr2)
+AIC(mlcr3)
+
+# análise resíduos
+rp <- resid(mlcr2, type = "pearson")
+
+d1 <- data.frame(x=1:4,y=rp[,1])
+d2 <- data.frame(x=1:4,y=rp[,2])
+d3 <- data.frame(x=1:4,y=rp[,3])
+
+plot1 <- d1 %>% ggplot(aes(y=rp[,1],x=1:4)) +
+  geom_point() +
+  scale_y_continuous(limits = c(-2,2)) +
+  geom_hline(yintercept = 0,linetype = "dashed") +
+  labs(x="Índices",
+       y="Resíduos de Pearson",
+       title="Gráfico 1: Logito 1")
+plot2 <- d2 %>% ggplot(aes(y=rp[,2],x=1:4)) +
+  geom_point() +
+  scale_y_continuous(limits = c(-2,2)) +
+  geom_hline(yintercept = 0,linetype = "dashed") +
+  labs(x="Índices",
+       y="Resíduos de Pearson",
+       title="Gráfico 2: Logito 2") 
+plot3 <- d3 %>% ggplot(aes(y=rp[,3],x=1:4)) +
+  geom_point() +
+  scale_y_continuous(limits = c(-2,2)) +
+  geom_hline(yintercept = 0,linetype = "dashed") +
+  labs(x="Índices",
+       y="Resíduos de Pearson",
+       title="Gráfico 3: Logito 3") 
+grid.arrange(plot1, plot2,plot3, ncol=3)
+
+# teste de qualida de ajuste
+
+Qp <- sum(rp[,1]^2) + sum(rp[,2]^2)+ sum(rp[,3]^2)
+p.value <- 1-pchisq(Qp,5)
+cbind(Qp,p.value)
+
+QL <- deviance(mlcr2)
+p.value <- 1-pchisq(QL,5)
+cbind(QL,p.value)
+
+# item c
+
+# coeficientes e probabilidades preditas
+coef(mlcr2,matrix = TRUE)
+fitted(mlcr2)
+
+# Exercício 6
+
+# item a
+
+# para todas as variáveis
+mca1 <- vglm(cbind(exc,bom,mod,ruim)~ factor(tabaco)+factor(pcard),
+           family=acat(reverse=T,parallel=T),dados)
+
+mca2 <- vglm(cbind(exc,bom,mod,ruim)~ factor(tabaco)+factor(pcard),
+             family=acat(reverse=T,parallel=F),dados)
+
+TRV<- deviance(mca1)-deviance(mca2)
+gl <- df.residual(mca1)-df.residual(mca2)
+p.value <- 1-pchisq(TRV,gl)
+cbind(TRV, gl, p.value)
+
+# para variável X1
+mca11 <- vglm(cbind(exc,bom,mod,ruim)~ factor(tabaco),
+              family=acat(reverse=T,parallel=T),dados)
+
+mca21 <- vglm(cbind(exc,bom,mod,ruim)~ factor(tabaco),
+              family=acat(reverse=T,parallel=F),dados)
+
+TRV1<- deviance(mca11)-deviance(mca21)
+gl1 <- df.residual(mca11)-df.residual(mca21)
+p.value <- 1-pchisq(TRV1,gl1)
+cbind(TRV1, gl1, p.value)
+
+# para variável X2
+mca12 <- vglm(cbind(exc,bom,mod,ruim)~ factor(pcard),
+              family=acat(reverse=T,parallel=T),dados)
+
+mca22 <- vglm(cbind(exc,bom,mod,ruim)~ factor(pcard),
+              family=acat(reverse=T,parallel=F),dados)
+
+TRV2<- deviance(mca12)-deviance(mca22)
+gl2 <- df.residual(mca12)-df.residual(mca22)
+p.value <- 1-pchisq(TRV2,gl2)
+cbind(TRV2, gl2, p.value)
+
+# tabela deviances
+mca0 <- vglm(cbind(exc,bom,mod,ruim)~1, acat(reverse=T,parallel=F), dados)
+mca0
+mca1 <- vglm(cbind(exc,bom,mod,ruim)~factor(tabaco), acat(reverse=T,parallel=F), dados)
+mca1
+mca2 <- vglm(cbind(exc,bom,mod,ruim)~factor(tabaco)+factor(pcard), 
+             acat(reverse=T,parallel=F), dados)
+mca2
+mca3 <- vglm(cbind(exc,bom,mod,ruim)~factor(tabaco)+factor(pcard)+
+               factor(tabaco)*factor(pcard),
+             acat(reverse=T,parallel=F), dados)
+mca3
+
+# graus de liberdade
+gl1 <- df.residual(mca0)-df.residual(mca1)
+gl2 <- df.residual(mca1)-df.residual(mca2)
+gl3 <- df.residual(mca2)-df.residual(mca3)
+
+# dif deviances
+dev1 <- deviance(mca0)-deviance(mca1)
+dev2 <- deviance(mca1)-deviance(mca2)
+dev3 <- deviance(mca2)-deviance(mca3)
+
+# p-values
+p1 <- 1-pchisq(dev1,gl1)
+p2 <- 1-pchisq(dev2,gl2)
+p3 <- 1-pchisq(dev3,gl3)
+
+# AIC dos modelos
+AIC(mca0)
+AIC(mca1)
+AIC(mca2)
+AIC(mca3)
+
+# análise resíduos
+rp <- resid(mca2, type = "pearson")
+
+d1 <- data.frame(x=1:4,y=rp[,1])
+d2 <- data.frame(x=1:4,y=rp[,2])
+d3 <- data.frame(x=1:4,y=rp[,3])
+
+plot1 <- d1 %>% ggplot(aes(y=rp[,1],x=1:4)) +
+  geom_point() +
+  scale_y_continuous(limits = c(-2.5,2.5)) +
+  geom_hline(yintercept = 0,linetype = "dashed") +
+  labs(x="Índices",
+       y="Resíduos de Pearson",
+       title="Gráfico 6: Logito 1")
+plot2 <- d2 %>% ggplot(aes(y=rp[,2],x=1:4)) +
+  geom_point() +
+  scale_y_continuous(limits = c(-2.5,2.5)) +
+  geom_hline(yintercept = 0,linetype = "dashed") +
+  labs(x="Índices",
+       y="Resíduos de Pearson",
+       title="Gráfico 7: Logito 2") 
+plot3 <- d3 %>% ggplot(aes(y=rp[,3],x=1:4)) +
+  geom_point() +
+  scale_y_continuous(limits = c(-2.5,2.5)) +
+  geom_hline(yintercept = 0,linetype = "dashed") +
+  labs(x="Índices",
+       y="Resíduos de Pearson",
+       title="Gráfico 8: Logito 3") 
+grid.arrange(plot1, plot2,plot3, ncol=3)
+
+# teste de qualida de ajuste
+
+Qp <- sum(rp[,1]^2) + sum(rp[,2]^2)+ sum(rp[,3]^2)
+p.value <- 1-pchisq(Qp,5)
+cbind(Qp,p.value)
+
+QL <- deviance(mca2)
+p.value <- 1-pchisq(QL,5)
+cbind(QL,p.value)
+
+# coeficientes e probabilidades preditas
+coef(mca2,matrix = TRUE)
+fitted(mca2)
+
+# item b
+
+# para todas as variáveis
+mlrc1 <- vglm(cbind(exc,bom,mod,ruim)~ factor(tabaco)+factor(pcard),
+              family=cratio(reverse=T,parallel=T),dados)
+
+mlrc2 <- vglm(cbind(exc,bom,mod,ruim)~ factor(tabaco)+factor(pcard),
+              family=cratio(reverse=T,parallel=F),dados)
+
+TRV<- deviance(mlrc1)-deviance(mlrc2)
+gl <- df.residual(mlrc1)-df.residual(mlrc2)
+p.value <- 1-pchisq(TRV,gl)
+cbind(TRV, gl, p.value)
+
+# para variável X1
+mlrc11 <- vglm(cbind(exc,bom,mod,ruim)~ factor(tabaco),
+              family=cratio(reverse=T,parallel=T),dados)
+
+mlrc21 <- vglm(cbind(exc,bom,mod,ruim)~ factor(tabaco),
+              family=cratio(reverse=T,parallel=F),dados)
+
+TRV1 <- deviance(mlrc11)-deviance(mlrc21)
+gl1 <- df.residual(mlrc11)-df.residual(mlrc21)
+p.value <- 1-pchisq(TRV1,gl1)
+cbind(TRV1, gl1, p.value)
+
+# para variável X2
+mlrc12 <- vglm(cbind(exc,bom,mod,ruim)~ factor(pcard),
+               family=cratio(reverse=T,parallel=T),dados)
+
+mlca22 <- vglm(cbind(exc,bom,mod,ruim)~ factor(pcard),
+               family=cratio(reverse=T,parallel=F),dados)
+
+TRV2<- deviance(mlrc12)-deviance(mlca22)
+gl2 <- df.residual(mlrc12)-df.residual(mlca22)
+p.value <- 1-pchisq(TRV2,gl2)
+cbind(TRV2, gl2, p.value)
+
+# tabela deviances
+mrc0 <- vglm(cbind(exc,bom,mod,ruim)~1, family=cratio(reverse=T,parallel=F), dados)
+mrc0
+mrc1 <- vglm(cbind(exc,bom,mod,ruim)~factor(tabaco),
+             family=cratio(reverse=T,parallel=F), dados)
+mrc1
+mrc2 <- vglm(cbind(exc,bom,mod,ruim)~factor(tabaco)+factor(pcard),
+             family=cratio(reverse=T,parallel=F), dados)
+mrc2
+mrc3 <- vglm(cbind(exc,bom,mod,ruim)~factor(tabaco)+factor(pcard)+
+               factor(tabaco)*factor(pcard),
+             family=cratio(reverse=T,parallel=F), dados)
+mrc3
+
+# graus de liberdade
+gl1 <- df.residual(mrc0)-df.residual(mrc1)
+gl2 <- df.residual(mrc1)-df.residual(mrc2)
+gl3 <- df.residual(mrc2)-df.residual(mrc3)
+
+# dif deviances
+dev1 <- deviance(mrc0)-deviance(mrc1)
+dev2 <- deviance(mrc1)-deviance(mrc2)
+dev3 <- deviance(mrc2)-deviance(mrc3)
+
+# p-values
+p1 <- 1-pchisq(dev1,gl1)
+p2 <- 1-pchisq(dev2,gl2)
+p3 <- 1-pchisq(dev3,gl3)
+
+# AIC dos modelos
+AIC(mrc0)
+AIC(mrc1)
+AIC(mrc2)
+AIC(mrc3)
+
+# análise resíduos
+rp <- resid(mrc2, type = "pearson")
+
+d1 <- data.frame(x=1:4,y=rp[,1])
+d2 <- data.frame(x=1:4,y=rp[,2])
+d3 <- data.frame(x=1:4,y=rp[,3])
+
+plot1 <- d1 %>% ggplot(aes(y=rp[,1],x=1:4)) +
+  geom_point() +
+  scale_y_continuous(limits = c(-2.5,2.5)) +
+  geom_hline(yintercept = 0,linetype = "dashed") +
+  labs(x="Índices",
+       y="Resíduos de Pearson",
+       title="Gráfico 9: Logito 1")
+plot2 <- d2 %>% ggplot(aes(y=rp[,2],x=1:4)) +
+  geom_point() +
+  scale_y_continuous(limits = c(-2.5,2.5)) +
+  geom_hline(yintercept = 0,linetype = "dashed") +
+  labs(x="Índices",
+       y="Resíduos de Pearson",
+       title="Gráfico 10: Logito 2") 
+plot3 <- d3 %>% ggplot(aes(y=rp[,3],x=1:4)) +
+  geom_point() +
+  scale_y_continuous(limits = c(-2.5,2.5)) +
+  geom_hline(yintercept = 0,linetype = "dashed") +
+  labs(x="Índices",
+       y="Resíduos de Pearson",
+       title="Gráfico 11: Logito 3") 
+grid.arrange(plot1, plot2,plot3, ncol=3)
+
+# teste de qualida de ajuste
+
+Qp <- sum(rp[,1]^2) + sum(rp[,2]^2)+ sum(rp[,3]^2)
+p.value <- 1-pchisq(Qp,5)
+cbind(Qp,p.value)
+
+QL <- deviance(mrc2)
+p.value <- 1-pchisq(QL,5)
+cbind(QL,p.value)
+
+# coeficientes e probabilidades preditas
+coef(mrc2,matrix = TRUE)
+fitted(mrc2)
+```
+
